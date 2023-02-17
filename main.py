@@ -120,6 +120,6 @@ st.pyplot(fig)
 # Display the parameter values
 st.write("## Current Parameter Values:")
 st.write(params)
-st.write('Time until final OD600 in hours:')
-st.write(end_time)
+st.write('Time until final OD600 in hours: '+end_time)
+st.write('')
 st.write('Provided by Fabian & David 😀')
