@@ -51,6 +51,7 @@ def growth_simulation(params):
     V0 = params['V0']
     glucose_to_ethanol = params['glucose_to_ethanol']
     lag_time = params['lag_time']
+    end_time = 'Not calculated'
 
     # Time vector
     t = np.linspace(0, 20, 1000) # time in min
