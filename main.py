@@ -32,15 +32,14 @@ params['glucose_to_ethanol'] = st.sidebar.slider('glucose_to_ethanol', min_value
 params['lag_time'] = st.sidebar.slider('lag_time', min_value=0, max_value=50, value=params['lag_time'][0], step=1)
 
 st.write("# Diauxic Growth Simulation of Yeast on Glucose")
-st.markdown('*S. cerevisiae*, as a Crabtree-positive yeast, predominantly ferments pyruvate to ethanol in high glucose conditions. When glucose or other preferred carbon sources are depleted, S. cerevisiae switches to aerobic respiration and utilizes ethanol as carbon source instead, a phenomenon known as diauxic shift.')
+st.markdown('*S. cerevisiae*, as a Crabtree-positive yeast, predominantly ferments pyruvate to ethanol in high glucose conditions. When glucose or other preferred carbon sources are depleted, *S. cerevisiae* switches to aerobic respiration and utilizes ethanol as carbon source instead, a phenomenon known as diauxic shift.')
 
 
 
 # Run the simulation
-
-
 # Define the simulation function
-@st.cache()
+
+@st.cache_resource
 def growth_simulation(params):
     # Unpack the parameters
     k1 = params['k1']
