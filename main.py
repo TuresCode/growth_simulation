@@ -40,6 +40,7 @@ st.markdown('*S. cerevisiae*, as a Crabtree-positive yeast, predominantly fermen
 
 
 # Define the simulation function
+@st.cache()
 def growth_simulation(params):
     # Unpack the parameters
     k1 = params['k1']
