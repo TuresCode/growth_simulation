@@ -94,7 +94,7 @@ def growth_simulation(params):
             if S2[i] < 0.01:
                 V[i] = V[i-1]
                 if check_end:
-                    end_time = str(round(i/60,2)
+                    end_time = str(round(i/60,2))
                     check_end = False
 
       #print(V.argmax())
