@@ -20,14 +20,14 @@ params = {
 
 # Create a Streamlit sidebar to allow the user to adjust the parameter values
 st.sidebar.write("# Parameters")
-params['k1'] = st.sidebar.slider('k1', min_value=0.0, max_value=1.0, value=params['k1'][0], step=0.01)
-params['k2'] = st.sidebar.slider('k2', min_value=0.0, max_value=1.0, value=params['k2'][0], step=0.01)
-params['Ks1'] = st.sidebar.slider('Ks1', min_value=0.0, max_value=1.0, value=params['Ks1'][0], step=0.01)
-params['Ks2'] = st.sidebar.slider('Ks2', min_value=0.0, max_value=1.0, value=params['Ks2'][0], step=0.01)
-params['Y1'] = st.sidebar.slider('Y1', min_value=0.0, max_value=1.0, value=params['Y1'][0], step=0.01)
-params['Y2'] = st.sidebar.slider('Y2', min_value=0.0, max_value=1.0, value=params['Y2'][0], step=0.01)
+params['k1'] = st.sidebar.slider('k1', min_value=0.0, max_value=1.0, value=params['k1'][0], step=0.05)
+params['k2'] = st.sidebar.slider('k2', min_value=0.0, max_value=1.0, value=params['k2'][0], step=0.05)
+params['Ks1'] = st.sidebar.slider('Ks1', min_value=0.0, max_value=1.0, value=params['Ks1'][0], step=0.05)
+params['Ks2'] = st.sidebar.slider('Ks2', min_value=0.0, max_value=1.0, value=params['Ks2'][0], step=0.05)
+params['Y1'] = st.sidebar.slider('Y1', min_value=0.0, max_value=1.0, value=params['Y1'][0], step=0.05)
+params['Y2'] = st.sidebar.slider('Y2', min_value=0.0, max_value=1.0, value=params['Y2'][0], step=0.05)
 params['S0'] = st.sidebar.slider('S0', min_value=0, max_value=50, value=params['S0'][0], step=1)
-params['V0'] = st.sidebar.slider('V0', min_value=0.0, max_value=1.0, value=params['V0'][0], step=0.001)
+params['V0'] = st.sidebar.slider('V0', min_value=0.0, max_value=1.0, value=params['V0'][0], step=0.005)
 params['glucose_to_ethanol'] = st.sidebar.slider('glucose_to_ethanol', min_value=0, max_value=10, value=params['glucose_to_ethanol'][0], step=1)
 params['lag_time'] = st.sidebar.slider('lag_time', min_value=0, max_value=50, value=params['lag_time'][0], step=1)
 
