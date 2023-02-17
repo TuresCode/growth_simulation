@@ -93,7 +93,7 @@ def growth_simulation(params):
             if S2[i] < 0.01:
                 V[i] = V[i-1]
                 if check_end:
-                    print('Time of final OD600:',round(i/60,2),'hours')
+                    st.write('Time of final OD600:'+str(round(i/60,2))+'hours')
                     check_end = False
 
       #print(V.argmax())
