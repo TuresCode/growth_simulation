@@ -94,19 +94,19 @@ def growth_simulation(params):
             if S2[i] < 0.01:
                 V[i] = V[i-1]
                 if check_end:
-                    st.write('Time of final OD600:'+str(round(i/60,2))+'hours')
+                    end_time = str(round(i/60,2)
                     check_end = False
 
       #print(V.argmax())
  
 
-    return V, S1, S2
+    return V, S1, S2, end_time
 
 #if st.button('Run Simulation:'):
 #    with st.spinner('Running my simulation...'):
 
         # Run the simulation
-V, S1, S2 = growth_simulation(params)
+V, S1, S2, end_time = growth_simulation(params)
 # plot the results
 fig = plt.figure(figsize=(7, 7))
 plt.plot(V, label="cells")
@@ -120,4 +120,6 @@ st.pyplot(fig)
 # Display the parameter values
 st.write("## Current Parameter Values:")
 st.write(params)
+st.write('Time until final OD600 in hours:')
+st.write(end_time)
 st.write('Provided by Fabian & David 😀')
