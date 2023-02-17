@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Define the default parameter values
+
 params = {
     'k1': (0.7, 'Maximum growth rate on glucose (h^-1)'),
     'k2': (0.3, 'Maximum growth rate on lactose (h^-1)'),
@@ -38,7 +39,7 @@ st.markdown('*S. cerevisiae*, as a Crabtree-positive yeast, predominantly fermen
 
 # Run the simulation
 # Define the simulation function
-
+@st.cache_resource
 def growth_simulation(params):
     # Unpack the parameters
     k1 = params['k1']
