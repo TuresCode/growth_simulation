@@ -2,35 +2,41 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # Define the default parameter values
 
 params = {
     'k1': (0.7, 'Maximum growth rate on glucose (h^-1)'),
-    'k2': (0.3, 'Maximum growth rate on lactose (h^-1)'),
+    'k2': (0.3, 'Maximum growth rate on ethanol (h^-1)'),
     'Ks1': (0.1, 'Glucose concentration at which the growth rate is half its maximum (g/L)'),
-    'Ks2': (0.2, 'EThanol concentration at which the growth rate is half its maximum (g/L)'),
+    'Ks2': (0.2, 'Ethanol concentration at which the growth rate is half its maximum (g/L)'),
     'Y1': (0.5, 'Yield coefficient for glucose (g cells/g glucose)'),
-    'Y2': (0.3, 'Yield coefficient for ethanol (g cells/g lactose)'),
+    'Y2': (0.3, 'Yield coefficient for ethanol (g cells/g ethanol)'),
     'S0': (12, 'Initial substrate concentration (g/L)'),
     'V0': (0.001, 'Initial cell concentration (g/L)'),
     'glucose_to_ethanol': (1, 'Conversion factor for glucose to ethanol'),
     'lag_time': (50, 'Lag phase from glucose to ethanol')
 }
+param_init = params.copy()
 
 
 
 # Create a Streamlit sidebar to allow the user to adjust the parameter values
 st.sidebar.write("# Parameters")
-params['k1'] = st.sidebar.slider('k1', min_value=0.0, max_value=1.0, value=params['k1'][0], step=0.05)
-params['k2'] = st.sidebar.slider('k2', min_value=0.0, max_value=1.0, value=params['k2'][0], step=0.05)
-params['Ks1'] = st.sidebar.slider('Ks1', min_value=0.0, max_value=1.0, value=params['Ks1'][0], step=0.05)
-params['Ks2'] = st.sidebar.slider('Ks2', min_value=0.0, max_value=1.0, value=params['Ks2'][0], step=0.05)
-params['Y1'] = st.sidebar.slider('Y1', min_value=0.0, max_value=1.0, value=params['Y1'][0], step=0.05)
-params['Y2'] = st.sidebar.slider('Y2', min_value=0.0, max_value=1.0, value=params['Y2'][0], step=0.05)
-params['S0'] = st.sidebar.slider('S0', min_value=0, max_value=50, value=params['S0'][0], step=1)
-params['V0'] = st.sidebar.slider('V0', min_value=0.0, max_value=1.0, value=params['V0'][0], step=0.005)
-params['glucose_to_ethanol'] = st.sidebar.slider('glucose_to_ethanol', min_value=0, max_value=10, value=params['glucose_to_ethanol'][0], step=1)
-params['lag_time'] = st.sidebar.slider('lag_time', min_value=0, max_value=50, value=params['lag_time'][0], step=1)
+def generate_sliders(params):
+    params['k1'] = st.sidebar.slider('k1',key='k1', min_value=0.0, max_value=1.0, value=params['k1'][0], step=0.05, help=param_init['k1'][1])
+    params['k2'] = st.sidebar.slider('k2',key='k2', min_value=0.0, max_value=1.0, value=params['k2'][0], step=0.05, help=param_init['k2'][1])
+    params['Ks1'] = st.sidebar.slider('Ks1',key='Ks1', min_value=0.0, max_value=1.0, value=params['Ks1'][0], step=0.05, help=param_init['Ks1'][1])
+    params['Ks2'] = st.sidebar.slider('Ks2',key = 'Ks2', min_value=0.0, max_value=1.0, value=params['Ks2'][0], step=0.05, help=param_init['Ks2'][1])
+    params['Y1'] = st.sidebar.slider('Y1',key='Y1', min_value=0.0, max_value=1.0, value=params['Y1'][0], step=0.05, help=param_init['Y1'][1])
+    params['Y2'] = st.sidebar.slider('Y2',key='Y2', min_value=0.0, max_value=1.0, value=params['Y2'][0], step=0.05, help=param_init['Y2'][1])
+    params['S0'] = st.sidebar.slider('S0',key='S0', min_value=0, max_value=50, value=params['S0'][0], step=1, help=param_init['S0'][1])
+    params['V0'] = st.sidebar.slider('V0',key='V0', min_value=0.0, max_value=1.0, value=params['V0'][0], step=0.005, help=param_init['V0'][1])
+    params['glucose_to_ethanol'] = st.sidebar.slider('glucose_to_ethanol',key='glucose_to_ethanol', min_value=0, max_value=10, value=params['glucose_to_ethanol'][0], step=1, help=param_init['glucose_to_ethanol'][1])
+    params['lag_time'] = st.sidebar.slider('lag_time',key='lag_time', min_value=0, max_value=50, value=params['lag_time'][0], step=1, help=param_init['lag_time'][1])
+    return params
+
+params = generate_sliders(params)
 
 st.write("# Diauxic Growth Simulation of Yeast on Glucose")
 st.markdown('*S. cerevisiae*, as a Crabtree-positive yeast, predominantly ferments pyruvate to ethanol in high glucose conditions. When glucose or other preferred carbon sources are depleted, *S. cerevisiae* switches to aerobic respiration and utilizes ethanol as carbon source instead, a phenomenon known as diauxic shift.')
@@ -104,10 +110,19 @@ def growth_simulation(params):
 
     return V, S1, S2, end_time
 
-#if st.button('Run Simulation:'):
-#    with st.spinner('Running my simulation...'):
+# Reset the simulation
 
-        # Run the simulation
+def _update_slider(values):
+    for key in values.keys():
+        st.session_state[key] = values[key]
+
+button = st.sidebar.button("Reset Simulation", on_click=_update_slider, kwargs={'values': {key: value[0] for key, value in param_init.items()}})
+
+# Connect the button with the function
+if button:
+    params = {key: value[0] for key, value in param_init.items()}
+    growth_simulation(params) #reset simulation
+
 V, S1, S2, end_time = growth_simulation(params)
 # plot the results
 fig = plt.figure(figsize=(7, 7))
